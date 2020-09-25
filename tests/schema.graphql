@@ -1,0 +1,8 @@
+# Directs the executor to query only when the field exists.
+directive @ifdef on FIELD
+
+type Query {
+  echo(i: UInt64Scalar!): UInt64Scalar!
+}
+
+scalar UInt64Scalar

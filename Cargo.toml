@@ -1,0 +1,26 @@
+[package]
+name = "graphql-int64-scalar"
+version = "0.1.0"
+authors = ["vkill <vkill.net@gmail.com>"]
+edition = "2018"
+description = "graphql i64/u64 scalar."
+license = "Apache-2.0 OR MIT"
+repository = "https://github.com/bk-rs/graphql-int64-scalar"
+homepage = "https://github.com/bk-rs/graphql-int64-scalar"
+documentation = "https://docs.rs/graphql-int64-scalar"
+keywords = []
+categories = []
+readme = "README.md"
+
+[dependencies]
+async-graphql = { version = "2.0.0-alpha", default-features = false, optional = true }
+cynic = { version = "0.9", default-features = false, optional = true }
+
+[dev-dependencies]
+futures-lite = { version = "1.8" }
+async-executor = { version = "1.3" }
+futures-timer = { version = "3.0" }
+isahc = { version = "0.9" }
+
+tide = { version = "0.13", default-features = false, features = ["h1-server"] }
+async-graphql-tide = { version = "2.0.0-alpha" }
