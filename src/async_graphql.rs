@@ -9,10 +9,10 @@ impl ScalarType for Int64Scalar {
             Value::String(string) => {
                 let integer: i64 = string
                     .parse()
-                    .map_err(|_| InputValueError::Custom(format!("Invalid value {}", value)))?;
+                    .map_err(|_| InputValueError::custom(format!("Invalid value {}", value)))?;
                 Ok(Self(integer))
             }
-            _ => Err(InputValueError::ExpectedType(value)),
+            _ => Err(InputValueError::expected_type(value)),
         }
     }
 
@@ -28,10 +28,10 @@ impl ScalarType for UInt64Scalar {
             Value::String(string) => {
                 let integer: u64 = string
                     .parse()
-                    .map_err(|_| InputValueError::Custom(format!("Invalid value {}", value)))?;
+                    .map_err(|_| InputValueError::custom(format!("Invalid value {}", value)))?;
                 Ok(Self(integer))
             }
-            _ => Err(InputValueError::ExpectedType(value)),
+            _ => Err(InputValueError::expected_type(value)),
         }
     }
 

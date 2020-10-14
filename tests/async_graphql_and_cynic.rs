@@ -91,11 +91,12 @@ mod async_graphql_and_cynic_tests {
                 Delay::new(Duration::from_millis(300)).await;
 
                 //
-                let query = cynic::Operation::query(EchoQuery::fragment(EchoArguments {
+                let echo_arguments = EchoArguments {
                     i: UInt64(u64::MAX),
-                }));
+                };
+                let echo_query = cynic::Operation::query(EchoQuery::fragment(&echo_arguments));
 
-                let http_req_body = serde_json::to_string(&query)?;
+                let http_req_body = serde_json::to_string(&echo_query)?;
                 println!("{:?}", http_req_body);
                 let http_req = Request::post(format!("http://{}/graphql", listen_addr_for_client))
                     .body(http_req_body)
@@ -106,7 +107,7 @@ mod async_graphql_and_cynic_tests {
                 assert_eq!(http_res_body, r#"{"data":{"echo":"18446744073709551615"}}"#);
                 let http_res_json_value = serde_json::from_str(&http_res_body)?;
 
-                let gql_res = query.decode_response(http_res_json_value).unwrap();
+                let gql_res = echo_query.decode_response(http_res_json_value).unwrap();
 
                 match gql_res.data {
                     Some(data) => assert_eq!(data.echo, UInt64(u64::MAX)),

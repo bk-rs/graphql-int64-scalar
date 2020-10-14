@@ -1,4 +1,4 @@
-use cynic::{serde_json::Value, DecodeError, Scalar, SerializeError};
+use cynic::{serde_json::Value, DecodeError, Scalar, SerializableArgument, SerializeError};
 
 use crate::{Int64Scalar, UInt64Scalar};
 
@@ -20,6 +20,12 @@ impl Scalar for Int64Scalar {
     }
 
     fn encode(&self) -> Result<Value, SerializeError> {
+        Ok(Value::String(self.0.to_string()))
+    }
+}
+
+impl SerializableArgument for Int64Scalar {
+    fn serialize(&self) -> Result<Value, SerializeError> {
         Ok(Value::String(self.0.to_string()))
     }
 }
@@ -46,6 +52,12 @@ impl Scalar for UInt64Scalar {
     }
 }
 
+impl SerializableArgument for UInt64Scalar {
+    fn serialize(&self) -> Result<Value, SerializeError> {
+        Ok(Value::String(self.0.to_string()))
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -65,6 +77,14 @@ mod tests {
                 .map_err(|err| io::Error::new(io::ErrorKind::Other, err.to_string()))?,
             Int64Scalar(i64::MAX)
         );
+
+        assert_eq!(
+            Int64Scalar(i64::MAX)
+                .serialize()
+                .map_err(|err| io::Error::new(io::ErrorKind::Other, err.to_string()))?,
+            Value::String("9223372036854775807".to_owned())
+        );
+
         Ok(())
     }
 
@@ -81,6 +101,14 @@ mod tests {
                 .map_err(|err| io::Error::new(io::ErrorKind::Other, err.to_string()))?,
             UInt64Scalar(u64::MAX)
         );
+
+        assert_eq!(
+            UInt64Scalar(u64::MAX)
+                .serialize()
+                .map_err(|err| io::Error::new(io::ErrorKind::Other, err.to_string()))?,
+            Value::String("18446744073709551615".to_owned())
+        );
+
         Ok(())
     }
 }
