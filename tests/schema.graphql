@@ -2,7 +2,7 @@
 directive @ifdef on FIELD
 
 type Query {
-  echo(i: UInt64Scalar!): UInt64Scalar!
+  echo(i: Uint64Scalar!): Uint64Scalar!
 }
 
-scalar UInt64Scalar
+scalar Uint64Scalar
