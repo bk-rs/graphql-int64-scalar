@@ -65,7 +65,7 @@ mod async_graphql_and_cynic_tests {
                 use cynic::{serde_json, QueryFragment};
                 use futures_timer::Delay;
                 use graphql_int64_scalar::UInt64Scalar as UInt64;
-                use isahc::{http::Request, ResponseExt};
+                use isahc::{http::Request, AsyncReadResponseExt};
 
                 mod query_dsl {
                     type Uint64Scalar = graphql_int64_scalar::UInt64Scalar;
@@ -102,7 +102,7 @@ mod async_graphql_and_cynic_tests {
                     .body(http_req_body)
                     .unwrap();
                 let mut http_res = isahc::send_async(http_req).await?;
-                let http_res_body = http_res.text_async().await?;
+                let http_res_body = http_res.text().await?;
                 println!("{:?}", http_res_body);
                 assert_eq!(http_res_body, r#"{"data":{"echo":"18446744073709551615"}}"#);
                 let http_res_json_value = serde_json::from_str(&http_res_body)?;

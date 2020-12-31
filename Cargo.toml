@@ -13,14 +13,14 @@ categories = []
 readme = "README.md"
 
 [dependencies]
-async-graphql = { version = "2.1", default-features = false, optional = true }
+async-graphql = { version = "2.4", default-features = false, optional = true }
 cynic = { version = "0.10", default-features = false, optional = true }
 
 [dev-dependencies]
 futures-lite = { version = "1.11" }
 async-executor = { version = "1.4" }
 futures-timer = { version = "3.0" }
-isahc = { version = "0.9" }
+isahc = { version = "1.0" }
 
-tide = { version = "0.14", default-features = false, features = ["h1-server"] }
-async-graphql-tide = { version = "2.1" }
+tide = { version = "0.15", default-features = false, features = ["h1-server"] }
+async-graphql-tide = { version = "2.4" }
