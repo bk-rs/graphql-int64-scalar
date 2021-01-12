@@ -14,7 +14,7 @@ readme = "README.md"
 
 [dependencies]
 async-graphql = { version = "2.4", default-features = false, optional = true }
-cynic = { version = "0.10", default-features = false, optional = true }
+cynic = { version = "0.11", default-features = false, optional = true }
 
 [dev-dependencies]
 futures-lite = { version = "1.11" }
@@ -24,3 +24,4 @@ isahc = { version = "1.0" }
 
 tide = { version = "0.15", default-features = false, features = ["h1-server"] }
 async-graphql-tide = { version = "2.4" }
+

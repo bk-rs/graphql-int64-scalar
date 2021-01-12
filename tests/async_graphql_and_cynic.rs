@@ -62,7 +62,9 @@ mod async_graphql_and_cynic_tests {
             });
 
             let client: Task<io::Result<()>> = ex.clone().spawn(async move {
-                use cynic::{serde_json, QueryFragment};
+                use cynic::{
+                    serde_json, FragmentArguments, FragmentContext, Operation, QueryFragment,
+                };
                 use futures_timer::Delay;
                 use graphql_int64_scalar::UInt64Scalar as UInt64;
                 use isahc::{http::Request, AsyncReadResponseExt};
@@ -71,11 +73,11 @@ mod async_graphql_and_cynic_tests {
                     type Uint64Scalar = graphql_int64_scalar::UInt64Scalar;
                     cynic::query_dsl!("tests/schema.graphql");
                 }
-                #[derive(cynic::FragmentArguments, Clone)]
+                #[derive(FragmentArguments, Clone)]
                 pub struct EchoArguments {
                     pub i: UInt64,
                 }
-                #[derive(cynic::QueryFragment, Debug)]
+                #[derive(QueryFragment, Debug)]
                 #[cynic(
                     schema_path = "tests/schema.graphql",
                     query_module = "query_dsl",
@@ -94,7 +96,8 @@ mod async_graphql_and_cynic_tests {
                 let echo_arguments = EchoArguments {
                     i: UInt64(u64::MAX),
                 };
-                let echo_query = cynic::Operation::query(EchoQuery::fragment(&echo_arguments));
+                let echo_query =
+                    Operation::query(EchoQuery::fragment(FragmentContext::new(&echo_arguments)));
 
                 let http_req_body = serde_json::to_string(&echo_query)?;
                 println!("{:?}", http_req_body);
