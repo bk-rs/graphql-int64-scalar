@@ -1,6 +1,6 @@
 [package]
 name = "graphql-int64-scalar"
-version = "0.3.2"
+version = "0.3.3"
 authors = ["vkill <vkill.net@gmail.com>"]
 edition = "2018"
 description = "graphql i64/u64 scalar."
@@ -11,6 +11,9 @@ documentation = "https://docs.rs/graphql-int64-scalar"
 keywords = []
 categories = []
 readme = "README.md"
+
+[package.metadata.docs.rs]
+features = [ "async-graphql", "cynic" ]
 
 [dependencies]
 async-graphql = { version = "2.7", default-features = false, optional = true }
