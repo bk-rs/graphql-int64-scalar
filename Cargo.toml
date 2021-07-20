@@ -15,16 +15,18 @@ readme = "README.md"
 [package.metadata.docs.rs]
 features = [ "async-graphql", "cynic" ]
 
+[features]
+default = [ "async-graphql", "cynic" ]
+
 [dependencies]
-async-graphql = { version = "2.7", default-features = false, optional = true }
-cynic = { version = "0.12", default-features = false, optional = true }
+async-graphql = { version = "2.9", default-features = false, optional = true }
+cynic = { version = "~0.12", default-features = false, optional = true }
 
 [dev-dependencies]
-futures-lite = { version = "1.11" }
+futures-lite = { version = "1.12" }
 async-executor = { version = "1.4" }
 futures-timer = { version = "3.0" }
-isahc = { version = "1.2" }
+isahc = { version = "1.4" }
 
 tide = { version = "0.16", default-features = false, features = ["h1-server"] }
-async-graphql-tide = { version = "2.7" }
-
+async-graphql-tide = { version = "2.9" }
